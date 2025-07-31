@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kristie's Projects</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      background: linear-gradient(135deg, #ffe8ec, #fff4f9);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #c95b7b;
+      margin-bottom: 30px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 15px 0;
+    }
+
+    a {
+      display: inline-block;
+      background-color: #fbb6c5;
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    a:hover {
+      background-color: #ff8ba7;
+      color: white;
+      transform: scale(1.05);
+      border-color: #fff0f4;
+    }
+
+    .bubble {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 183, 197, 0.2);
+      border-radius: 50%;
+      animation: float 6s infinite ease-in-out;
+    }
+
+    .bubble:nth-child(1) {
+      top: 10%;
+      left: 5%;
+      animation-delay: 0s;
+    }
+
+    .bubble:nth-child(2) {
+      top: 20%;
+      right: 10%;
+      animation-delay: 2s;
+    }
+
+    .bubble:nth-child(3) {
+      bottom: 15%;
+      left: 15%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+
+  <h1>💖 Kristie's Sub Projects 💖</h1>
+  <ul>
+    <li><a href="fiscal.html">📅 Fiscal Year Finder</a></li>
+    <!-- You can add more tools here -->
+  </ul>
+</body>
+</html>

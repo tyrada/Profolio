@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fiscal Year Finder</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f7f7fc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #4c4a6f;
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      margin: 10px;
+      padding: 10px;
+      font-size: 1rem;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>📅 Fiscal Year Finder</h1>
+  <label for="month">Month:</label>
+  <select id="month">
+    <option value="">-- Select Month --</option>
+    <option value="0">January</option>
+    <option value="1">February</option>
+    <option value="2">March</option>
+    <option value="3">April</option>
+    <option value="4">May</option>
+    <option value="5">June</option>
+    <option value="6">July</option>
+    <option value="7">August</option>
+    <option value="8">September</option>
+    <option value="9">October</option>
+    <option value="10">November</option>
+    <option value="11">December</option>
+  </select>
+
+  <label for="year">Year:</label>
+  <input type="number" id="year" placeholder="e.g. 2019" />
+
+  <button onclick="findFiscalYear()">Find Fiscal Year</button>
+
+  <div id="result"></div>
+
+  <script>
+    function findFiscalYear() {
+      const month = parseInt(document.getElementById("month").value);
+      const year = parseInt(document.getElementById("year").value);
+      let result = "";
+
+      if (isNaN(month) || isNaN(year)) {
+        result = "Please select both month and year.";
+      } else {
+        if (month >= 3) {
+          result = `${year}-${year + 1}`;
+        } else {
+          result = `${year - 1}-${year}`;
+        }
+      }
+
+      document.getElementById("result").innerText = `Fiscal Year: ${result}`;
+    }
+  </script>
+</body>
+</html>
