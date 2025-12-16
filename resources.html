@@ -1,1 +1,1036 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Resources</title>
+  <style>
+    :root{
+      --bg:#0b0f17; --panel:#101828; --panel2:#0f172a; --text:#e5e7eb; --muted:#a7b0c0;
+      --border:rgba(255,255,255,.12); --focus:rgba(99,102,241,.55);
+      --danger: rgba(239,68,68,.9);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; color:var(--text);
+      background: radial-gradient(1200px 600px at 20% 0%, #121c33 0%, var(--bg) 55%);
+      font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+    }
+    .container{width:min(1200px,calc(100% - 32px)); margin:0 auto;}
+    header{
+      border-bottom:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(16,24,40,0.9), rgba(16,24,40,0.6));
+      backdrop-filter: blur(10px);
+    }
+    h1{margin:26px 0 6px; font-size:26px;}
+    .subtitle{margin:0 0 14px; color:var(--muted)}
+    .toolbar{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:12px;}
+    .search{
+      flex:1 1 360px; padding:10px 12px; border-radius:10px;
+      border:1px solid var(--border); background:rgba(15,23,42,.8);
+      color:var(--text); outline:none;
+    }
+    .search:focus{box-shadow:0 0 0 4px var(--focus)}
+    .btn{
+      border:1px solid var(--border); border-radius:10px; padding:10px 12px;
+      color:var(--text); background:rgba(255,255,255,.06); cursor:pointer;
+      text-decoration:none; display:inline-flex; gap:8px; align-items:center;
+    }
+    .btn:hover{background:rgba(255,255,255,.10)}
+    .btn:focus{box-shadow:0 0 0 4px var(--focus); outline:none;}
+    .btn-danger{
+      border-color: rgba(239,68,68,.45);
+      background: rgba(239,68,68,.10);
+    }
+    .btn-danger:hover{ background: rgba(239,68,68,.18); }
+    .spacer{ flex: 1 1 auto; }
 
+    /* Tabs */
+    .tabs{
+      display:flex; flex-wrap:wrap; gap:8px; padding: 4px 0 14px;
+    }
+    .tab{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      user-select: none;
+      color: var(--text);
+    }
+    .tab[aria-pressed="true"]{
+      border-color: rgba(99,102,241,.7);
+      box-shadow: 0 0 0 3px rgba(99,102,241,.25);
+    }
+
+    /* Facets */
+    .facetWrap{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.45);
+      padding: 12px;
+      margin: 10px 0 18px;
+    }
+    .facetHeader{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
+    .facetTitle{
+      font-weight: 700; letter-spacing:.2px;
+    }
+    .facetGrid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    @media (max-width: 980px){
+      .facetGrid{ grid-template-columns: 1fr; }
+    }
+    .facet{
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 12px;
+      padding: 10px;
+      background: rgba(16,24,40,.35);
+      min-height: 76px;
+    }
+    .facetLabel{
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+    .tagbar{display:flex; flex-wrap:wrap; gap:8px;}
+    .tag{
+      border:1px solid var(--border); background:rgba(255,255,255,.06);
+      padding:7px 10px; border-radius:999px; cursor:pointer; user-select:none; color:var(--text);
+      display:inline-flex; gap:6px; align-items:center;
+    }
+    .tag[aria-pressed="true"]{
+      border-color:rgba(99,102,241,.7);
+      box-shadow:0 0 0 3px rgba(99,102,241,.25);
+    }
+    .tag small{color:var(--muted);}
+
+    .meta{
+      padding: 0 0 16px;
+      color: var(--muted);
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+    .dot{opacity:.5}
+
+    /* Table */
+    .tableWrap{
+      margin: 18px 0 20px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      overflow:auto;
+      background:rgba(15,23,42,.55);
+    }
+    table{width:100%; border-collapse:collapse; min-width:1100px;}
+    thead th{
+      position:sticky; top:0;
+      background:rgba(16,24,40,.95);
+      border-bottom:1px solid var(--border);
+      text-align:left; padding:12px;
+      font-size:13px; color:var(--muted);
+    }
+    tbody td{
+      border-bottom:1px solid rgba(255,255,255,.08);
+      padding:12px; vertical-align:top;
+    }
+    a{color:#c7d2fe}
+    a:hover{color:#eef2ff}
+    .pill{
+      display:inline-block; padding:4px 8px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06);
+      margin:2px 6px 2px 0; white-space:nowrap; font-size:12px;
+    }
+    .empty{color:var(--muted); padding:16px 0 40px;}
+    footer{border-top:1px solid var(--border); padding:18px 0 28px; color:var(--muted);}
+    code{color:#d1fae5}
+
+    /* Modal */
+    .modalBackdrop{
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 999;
+    }
+    .modal{
+      width: min(900px, 100%);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(16,24,40,.98);
+      box-shadow: 0 20px 80px rgba(0,0,0,.45);
+      overflow: hidden;
+    }
+    .modalTop{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .modalTop strong{ font-size: 14px; }
+    .modalBody{ padding: 14px; }
+    .formGrid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    @media (max-width: 860px){
+      .formGrid{ grid-template-columns: 1fr; }
+      table{ min-width: 980px; }
+    }
+    label{ display:block; color: var(--muted); font-size: 12px; margin: 0 0 6px; }
+    input, textarea{
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(15,23,42,.65);
+      color: var(--text);
+      outline: none;
+    }
+    textarea{ min-height: 90px; resize: vertical; }
+    input:focus, textarea:focus{ box-shadow: 0 0 0 4px var(--focus); }
+    .help{ color: var(--muted); font-size: 12px; margin-top: 6px; }
+    .modalActions{
+      display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;
+      padding: 12px 14px;
+      border-top: 1px solid rgba(255,255,255,.10);
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container">
+    <h1>Community Resources</h1>
+    <p class="subtitle">Browse support services and filter by “who it’s for”, service type, and cost. Add new resources anytime.</p>
+
+    <div class="toolbar">
+      <input id="searchInput" class="search" type="search"
+             placeholder="Search organization, services, eligibility, location..."
+             aria-label="Search resources" />
+
+      <button id="addBtn" class="btn" type="button">Add Resource</button>
+      <button id="clearBtn" class="btn" type="button">Clear filters</button>
+
+      <span class="spacer"></span>
+
+      <button id="exportBtn" class="btn" type="button">Export JSON</button>
+      <button id="importBtn" class="btn" type="button">Import JSON</button>
+      <button id="resetBtn" class="btn btn-danger" type="button">Reset to Defaults</button>
+      <a class="btn" href="index.html">Back to Home</a>
+    </div>
+
+    <!-- Top-level tabs (quick filters) -->
+    <div class="tabs" id="tabs" aria-label="Quick audience tabs"></div>
+
+    <!-- Faceted filters -->
+    <div class="facetWrap">
+      <div class="facetHeader">
+        <div class="facetTitle">Filters</div>
+        <div class="help">You can combine filters across groups.</div>
+      </div>
+
+      <div class="facetGrid">
+        <div class="facet">
+          <div class="facetLabel">Identity</div>
+          <div class="tagbar" id="facetIdentity"></div>
+        </div>
+        <div class="facet">
+          <div class="facetLabel">Service type</div>
+          <div class="tagbar" id="facetService"></div>
+        </div>
+        <div class="facet">
+          <div class="facetLabel">Cost</div>
+          <div class="tagbar" id="facetCost"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta">
+      <span id="countText">0 results</span>
+      <span class="dot">•</span>
+      <span>Tip: Click a tag to add/remove it. Tabs are just “pre-set” identity filters.</span>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="tableWrap" role="region" aria-label="Resources table" tabindex="0">
+    <table aria-describedby="countText">
+      <thead>
+      <tr>
+        <th>Organization</th>
+        <th>Link</th>
+        <th>Hours</th>
+        <th>Eligibility</th>
+        <th>Services</th>
+        <th>Location</th>
+        <th>Phone</th>
+        <th>Tags</th>
+        <th>Notes</th>
+      </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <p id="emptyState" class="empty" hidden>
+    No resources match your filters. Try removing a tag or changing your search.
+  </p>
+</main>
+
+<footer>
+  <div class="container">
+    <small>
+      Data is saved in your browser (localStorage). Use <code>Export JSON</code> to back up and <code>Import JSON</code> on another device.
+    </small>
+  </div>
+</footer>
+
+<!-- Add Resource Modal -->
+<div class="modalBackdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-label="Add resource">
+  <div class="modal">
+    <div class="modalTop">
+      <strong>Add a new resource</strong>
+      <button class="btn" id="closeModalBtn" type="button">Close</button>
+    </div>
+
+    <div class="modalBody">
+      <div class="formGrid">
+        <div>
+          <label for="f_name">Organization name</label>
+          <input id="f_name" placeholder="e.g., Ottawa Newcomer Clinic" />
+        </div>
+
+        <div>
+          <label for="f_url">Organization link</label>
+          <input id="f_url" placeholder="https://..." />
+          <div class="help">Include https:// for best results.</div>
+        </div>
+
+        <div>
+          <label for="f_hours">Hours</label>
+          <input id="f_hours" placeholder="Mon–Fri 9:00–5:00" />
+        </div>
+
+        <div>
+          <label for="f_phone">Phone</label>
+          <input id="f_phone" placeholder="613-..." />
+        </div>
+
+        <div>
+          <label for="f_location">Location</label>
+          <input id="f_location" placeholder="City, Province" />
+        </div>
+
+        <div>
+          <label for="f_cost">Cost tags (comma-separated)</label>
+          <input id="f_cost" placeholder="Free, Sliding scale, Paid" />
+          <div class="help">Use: Free, Sliding scale, Paid.</div>
+        </div>
+
+        <div>
+          <label for="f_identity">Identity tags (comma-separated)</label>
+          <input id="f_identity" placeholder="Refugee, Newcomer, Student..." />
+        </div>
+
+        <div>
+          <label for="f_service">Service tags (comma-separated)</label>
+          <input id="f_service" placeholder="Housing, Legal, Food, Health..." />
+        </div>
+
+        <div style="grid-column: 1 / -1;">
+          <label for="f_eligibility">Eligibility</label>
+          <textarea id="f_eligibility" placeholder="Who can access this service? Requirements? Documents needed?"></textarea>
+        </div>
+
+        <div style="grid-column: 1 / -1;">
+          <label for="f_services">Services</label>
+          <textarea id="f_services" placeholder="What does this organization provide?"></textarea>
+        </div>
+
+        <div style="grid-column: 1 / -1;">
+          <label for="f_notes">Notes</label>
+          <textarea id="f_notes" placeholder="Any extra info (appointments, referral needed, languages offered, etc.)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="modalActions">
+      <button class="btn" id="saveResourceBtn" type="button">Save Resource</button>
+      <button class="btn btn-danger" id="cancelResourceBtn" type="button">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<input id="hiddenImport" type="file" accept="application/json" style="display:none;" />
+
+<script>
+  /**********************
+   * 1) Tag dictionary
+   **********************/
+  const TAG_GROUPS = {
+    identity: [
+      "Refugee","Newcomer","Student","Senior","Low Income","Disability","Youth","Women","2SLGBTQ+","Indigenous","Immigrant","Family","Single Parent"
+    ],
+    service: [
+      "Settlement","Housing","Shelter","Food","Legal","Immigration","Employment","Training","Education","Language","Health","Mental Health","Counselling",
+      "Financial Aid","Benefits","Community","Childcare","Domestic Violence","Emergency","Transportation","Accessibility","Youth Programs"
+    ],
+    cost: [
+      "Free","Sliding scale","Paid"
+    ]
+  };
+
+  // Quick tabs = identity presets (these just toggle that identity tag)
+  const QUICK_TABS = [
+    "Refugee","Newcomer","Student","Senior","Low Income","Disability","Youth","Women","2SLGBTQ+"
+  ];
+
+  /**********************
+   * 2) Default resources (starter dataset)
+   * Replace these with real organizations/links whenever you want.
+   **********************/
+  const DEFAULT_RESOURCES = [
+    {
+      name: "Settlement & Referrals Centre (Example)",
+      url: "https://example.org",
+      hours: "Mon–Fri 9:00–5:00",
+      eligibility: "Newcomers, refugees, permanent residents; may require appointment.",
+      services: "Settlement intake, referrals, forms support, interpretation (limited).",
+      location: "Ottawa, ON",
+      phone: "613-000-0000",
+      tags: ["Refugee","Newcomer","Settlement","Community","Free"],
+      notes: "Ask about language support."
+    },
+    {
+      name: "Refugee Legal Clinic (Example)",
+      url: "https://example.net",
+      hours: "Mon–Thu 10:00–3:00",
+      eligibility: "Income-tested; some immigration/refugee matters; proof of status may be requested.",
+      services: "Legal information, clinic appointments, referrals to counsel.",
+      location: "Ottawa, ON",
+      phone: "613-222-2222",
+      tags: ["Refugee","Immigration","Legal","Free"],
+      notes: "Some services may require referral."
+    },
+    {
+      name: "Emergency Shelter Line (Example)",
+      url: "https://example.com",
+      hours: "24/7",
+      eligibility: "Individuals/families seeking emergency shelter.",
+      services: "Shelter access coordination, emergency referrals.",
+      location: "Ottawa, ON",
+      phone: "613-333-3333",
+      tags: ["Shelter","Emergency","Housing","Refugee","Newcomer","Free"],
+      notes: "Call for availability."
+    },
+    {
+      name: "Food Bank Network (Example)",
+      url: "https://example.com/food",
+      hours: "Tue–Sat 10:00–4:00",
+      eligibility: "Low-income residents in service area; may require ID/address.",
+      services: "Food hampers, community meals, baby supplies (limited).",
+      location: "Ottawa, ON",
+      phone: "613-111-1111",
+      tags: ["Food","Low Income","Emergency","Free","Family"],
+      notes: "Bring ID if required."
+    },
+    {
+      name: "Newcomer Employment Services (Example)",
+      url: "https://example.org/jobs",
+      hours: "Mon–Fri 9:00–4:30",
+      eligibility: "Newcomers; some programs for refugees and internationally-trained professionals.",
+      services: "Resume help, interview prep, job matching, training referrals.",
+      location: "Ottawa, ON",
+      phone: "613-444-4444",
+      tags: ["Employment","Training","Newcomer","Immigrant","Free"],
+      notes: "Workshops run weekly."
+    },
+    {
+      name: "Language & ESL Program (Example)",
+      url: "https://example.org/esl",
+      hours: "Varies (day/evening classes)",
+      eligibility: "Newcomers; placement testing may be required.",
+      services: "Language classes, conversation circles, tutoring.",
+      location: "Ottawa, ON",
+      phone: "613-555-5555",
+      tags: ["Language","Education","Newcomer","Refugee","Free"],
+      notes: "Ask about childcare during classes."
+    },
+    {
+      name: "Youth Support Hub (Example)",
+      url: "https://example.org/youth",
+      hours: "Mon–Fri 12:00–7:00",
+      eligibility: "Youth ages 12–25; some specialized newcomer supports.",
+      services: "Youth programs, counselling, education support, referrals.",
+      location: "Ottawa, ON",
+      phone: "613-666-6666",
+      tags: ["Youth","Youth Programs","Mental Health","Counselling","Free"],
+      notes: "Drop-in hours available."
+    },
+    {
+      name: "Women’s Support & Safety (Example)",
+      url: "https://example.org/women",
+      hours: "24/7 crisis line; office hours vary",
+      eligibility: "Women experiencing violence or safety concerns.",
+      services: "Safety planning, counselling, shelter referrals, legal navigation.",
+      location: "Ottawa, ON",
+      phone: "613-777-7777",
+      tags: ["Women","Domestic Violence","Counselling","Emergency","Free"],
+      notes: "Crisis line 24/7."
+    },
+    {
+      name: "Student Financial Aid & Bursaries (Example)",
+      url: "https://example.org/student-aid",
+      hours: "Mon–Fri 9:00–4:00",
+      eligibility: "Post-secondary students; criteria varies by bursary.",
+      services: "Financial aid advising, bursary applications, emergency grants.",
+      location: "Ottawa, ON",
+      phone: "613-888-8888",
+      tags: ["Student","Financial Aid","Benefits","Free"],
+      notes: "Check deadlines."
+    },
+    {
+      name: "Community Health Clinic (Example)",
+      url: "https://example.org/health",
+      hours: "Mon–Fri 9:00–5:00",
+      eligibility: "Community members; some programs for uninsured/newcomers.",
+      services: "Primary care, referrals, mental health supports, health navigation.",
+      location: "Ottawa, ON",
+      phone: "613-999-9999",
+      tags: ["Health","Mental Health","Newcomer","Low Income","Sliding scale"],
+      notes: "Some services by appointment."
+    },
+    {
+      name: "Disability Supports & Accessibility (Example)",
+      url: "https://example.org/access",
+      hours: "Mon–Fri 9:00–4:00",
+      eligibility: "People with disabilities; documentation may be required.",
+      services: "Assistive device navigation, accessibility advocacy, referrals.",
+      location: "Ottawa, ON",
+      phone: "613-121-2121",
+      tags: ["Disability","Accessibility","Benefits","Community","Free"],
+      notes: "Ask about forms support."
+    },
+    {
+      name: "2SLGBTQ+ Community Services (Example)",
+      url: "https://example.org/queer",
+      hours: "Mon–Fri 10:00–6:00",
+      eligibility: "2SLGBTQ+ community members; newcomer supports may be available.",
+      services: "Peer support, counselling, groups, referrals.",
+      location: "Ottawa, ON",
+      phone: "613-232-3232",
+      tags: ["2SLGBTQ+","Community","Counselling","Mental Health","Free"],
+      notes: "Groups run monthly."
+    }
+  ];
+
+  /**********************
+   * 3) State + persistence
+   **********************/
+  const STORAGE_KEY = "community_resource_hub_v1";
+  const ACTIVE_FILTERS_KEY = "community_resource_hub_filters_v1";
+
+  function loadResources(){
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return structuredClone(DEFAULT_RESOURCES);
+    try{
+      const parsed = JSON.parse(raw);
+      if(Array.isArray(parsed)) return parsed;
+      return structuredClone(DEFAULT_RESOURCES);
+    }catch{
+      return structuredClone(DEFAULT_RESOURCES);
+    }
+  }
+  function saveResources(list){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  }
+
+  // Filters
+  let allResources = loadResources();
+  let activeIdentity = new Set();
+  let activeService  = new Set();
+  let activeCost     = new Set();
+  let activeTab = ""; // quick tab (single identity tag)
+  let searchTerm = "";
+
+  function loadFilters(){
+    const raw = localStorage.getItem(ACTIVE_FILTERS_KEY);
+    if(!raw) return;
+    try{
+      const f = JSON.parse(raw);
+      activeIdentity = new Set(f.identity || []);
+      activeService  = new Set(f.service  || []);
+      activeCost     = new Set(f.cost     || []);
+      activeTab = f.tab || "";
+      searchTerm = f.search || "";
+    }catch{}
+  }
+  function saveFilters(){
+    const f = {
+      identity: [...activeIdentity],
+      service: [...activeService],
+      cost: [...activeCost],
+      tab: activeTab,
+      search: searchTerm
+    };
+    localStorage.setItem(ACTIVE_FILTERS_KEY, JSON.stringify(f));
+  }
+
+  /**********************
+   * 4) DOM
+   **********************/
+  const tabsEl = document.getElementById("tabs");
+  const facetIdentityEl = document.getElementById("facetIdentity");
+  const facetServiceEl  = document.getElementById("facetService");
+  const facetCostEl     = document.getElementById("facetCost");
+
+  const tableBody = document.getElementById("tableBody");
+  const countText = document.getElementById("countText");
+  const emptyState = document.getElementById("emptyState");
+
+  const searchInput = document.getElementById("searchInput");
+  const clearBtn = document.getElementById("clearBtn");
+  const addBtn = document.getElementById("addBtn");
+  const exportBtn = document.getElementById("exportBtn");
+  const importBtn = document.getElementById("importBtn");
+  const resetBtn = document.getElementById("resetBtn");
+  const hiddenImport = document.getElementById("hiddenImport");
+
+  // Modal
+  const modalBackdrop = document.getElementById("modalBackdrop");
+  const closeModalBtn = document.getElementById("closeModalBtn");
+  const cancelResourceBtn = document.getElementById("cancelResourceBtn");
+  const saveResourceBtn = document.getElementById("saveResourceBtn");
+
+  const f_name = document.getElementById("f_name");
+  const f_url = document.getElementById("f_url");
+  const f_hours = document.getElementById("f_hours");
+  const f_phone = document.getElementById("f_phone");
+  const f_location = document.getElementById("f_location");
+  const f_cost = document.getElementById("f_cost");
+  const f_identity = document.getElementById("f_identity");
+  const f_service = document.getElementById("f_service");
+  const f_eligibility = document.getElementById("f_eligibility");
+  const f_services = document.getElementById("f_services");
+  const f_notes = document.getElementById("f_notes");
+
+  /**********************
+   * 5) Helpers
+   **********************/
+  function normalize(str){ return (str ?? "").toString().trim().toLowerCase(); }
+
+  function uniqTagsFromResources(resources){
+    const set = new Set();
+    for(const r of resources){
+      for(const t of (r.tags || [])) set.add(t);
+    }
+    return set;
+  }
+
+  function ensureTagDictionariesIncludeCurrentData(){
+    const existing = uniqTagsFromResources(allResources);
+
+    for(const t of existing){
+      // Put it somewhere sensible if it isn't already listed
+      if(TAG_GROUPS.identity.includes(t) || TAG_GROUPS.service.includes(t) || TAG_GROUPS.cost.includes(t)) continue;
+
+      // Heuristic: treat known cost words as cost; else treat as service by default.
+      const costWords = new Set(TAG_GROUPS.cost.map(normalize));
+      if(costWords.has(normalize(t))) TAG_GROUPS.cost.push(t);
+      else TAG_GROUPS.service.push(t);
+    }
+  }
+
+  function parseCommaList(v){
+    return normalize(v)
+      .split(",")
+      .map(s => s.trim())
+      .filter(Boolean)
+      .map(s => s.replace(/\s+/g, " "))
+      .map(s => s.split(" ").map(w => w.length ? (w[0].toUpperCase() + w.slice(1)) : w).join(" "));
+  }
+
+  function hasAny(resourceTags, activeSet){
+    if(activeSet.size === 0) return true;
+    const rt = new Set(resourceTags || []);
+    for(const t of activeSet) if(rt.has(t)) return true;
+    return false;
+  }
+
+  function matchesAllFacets(r){
+    // Quick tab is just an identity tag; keep it synced
+    const tabOk = !activeTab ? true : (r.tags || []).includes(activeTab);
+
+    return tabOk
+      && hasAny(r.tags, activeIdentity)
+      && hasAny(r.tags, activeService)
+      && hasAny(r.tags, activeCost);
+  }
+
+  function matchesSearch(r){
+    if(!searchTerm) return true;
+    const haystack = [
+      r.name, r.url, r.hours, r.eligibility, r.services, r.location, r.phone, (r.tags || []).join(" "), r.notes
+    ].map(normalize).join(" | ");
+    return haystack.includes(searchTerm);
+  }
+
+  /**********************
+   * 6) Rendering
+   **********************/
+  function renderTabs(){
+    tabsEl.innerHTML = "";
+    for(const tab of QUICK_TABS){
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "tab";
+      b.setAttribute("aria-pressed", activeTab === tab ? "true" : "false");
+      b.textContent = tab;
+      b.addEventListener("click", () => {
+        activeTab = (activeTab === tab) ? "" : tab;
+
+        // Keep identity facet consistent with tab usage:
+        // If a tab is selected, ensure it's included in identity filters (but allow user to add others).
+        if(activeTab) activeIdentity.add(activeTab);
+        else {
+          // If tab is cleared, do not force-remove it from identity (user may still want it)
+          // So we leave activeIdentity unchanged.
+        }
+
+        saveFilters();
+        render();
+      });
+      tabsEl.appendChild(b);
+    }
+  }
+
+  function renderFacet(groupName, mountEl, activeSet){
+    mountEl.innerHTML = "";
+    const tags = TAG_GROUPS[groupName].slice().sort((a,b) => a.localeCompare(b));
+
+    // Counts based on current dataset (not current filters)
+    const counts = new Map();
+    for(const r of allResources){
+      for(const t of (r.tags || [])){
+        counts.set(t, (counts.get(t) || 0) + 1);
+      }
+    }
+
+    for(const t of tags){
+      const count = counts.get(t) || 0;
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "tag";
+      btn.setAttribute("aria-pressed", activeSet.has(t) ? "true" : "false");
+      btn.appendChild(document.createTextNode(t));
+
+      const badge = document.createElement("small");
+      badge.textContent = `(${count})`;
+      btn.appendChild(badge);
+
+      btn.addEventListener("click", () => {
+        if(activeSet.has(t)) activeSet.delete(t);
+        else activeSet.add(t);
+
+        // If user removes the active tab tag from identity facet, also clear tab state for consistency
+        if(groupName === "identity" && activeTab && !activeSet.has(activeTab)){
+          activeTab = "";
+        }
+
+        saveFilters();
+        render();
+      });
+
+      mountEl.appendChild(btn);
+    }
+  }
+
+  function renderRows(list){
+    tableBody.innerHTML = "";
+
+    for(const r of list){
+      const tr = document.createElement("tr");
+
+      const org = document.createElement("td");
+      org.textContent = r.name || "";
+      tr.appendChild(org);
+
+      const link = document.createElement("td");
+      if(r.url){
+        const a = document.createElement("a");
+        a.href = r.url;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = "Visit";
+        link.appendChild(a);
+      }
+      tr.appendChild(link);
+
+      const hours = document.createElement("td");
+      hours.textContent = r.hours || "";
+      tr.appendChild(hours);
+
+      const elig = document.createElement("td");
+      elig.textContent = r.eligibility || "";
+      tr.appendChild(elig);
+
+      const svc = document.createElement("td");
+      svc.textContent = r.services || "";
+      tr.appendChild(svc);
+
+      const loc = document.createElement("td");
+      loc.textContent = r.location || "";
+      tr.appendChild(loc);
+
+      const phone = document.createElement("td");
+      phone.textContent = r.phone || "";
+      tr.appendChild(phone);
+
+      const tagsTd = document.createElement("td");
+      for(const t of (r.tags || [])){
+        const pill = document.createElement("span");
+        pill.className = "pill";
+        pill.textContent = t;
+        tagsTd.appendChild(pill);
+      }
+      tr.appendChild(tagsTd);
+
+      const notes = document.createElement("td");
+      notes.textContent = r.notes || "";
+      tr.appendChild(notes);
+
+      tableBody.appendChild(tr);
+    }
+  }
+
+  function render(){
+    // Update pressed states for tabs
+    for(const el of tabsEl.querySelectorAll(".tab")){
+      el.setAttribute("aria-pressed", el.textContent === activeTab ? "true" : "false");
+    }
+
+    // Update pressed states for facets by re-rendering them
+    renderFacet("identity", facetIdentityEl, activeIdentity);
+    renderFacet("service", facetServiceEl, activeService);
+    renderFacet("cost", facetCostEl, activeCost);
+
+    const filtered = allResources
+      .filter(matchesAllFacets)
+      .filter(matchesSearch);
+
+    renderRows(filtered);
+
+    countText.textContent = `${filtered.length} result${filtered.length === 1 ? "" : "s"}`;
+    emptyState.hidden = filtered.length !== 0;
+  }
+
+  /**********************
+   * 7) Modal logic
+   **********************/
+  function openModal(){
+    // reset fields
+    f_name.value = "";
+    f_url.value = "";
+    f_hours.value = "";
+    f_phone.value = "";
+    f_location.value = "";
+    f_cost.value = "Free";
+    f_identity.value = "";
+    f_service.value = "";
+    f_eligibility.value = "";
+    f_services.value = "";
+    f_notes.value = "";
+
+    modalBackdrop.style.display = "flex";
+    setTimeout(() => f_name.focus(), 0);
+  }
+  function closeModal(){
+    modalBackdrop.style.display = "none";
+  }
+
+  function sanitizeUrl(u){
+    const v = (u || "").trim();
+    if(!v) return "";
+    // If user forgets scheme, add https://
+    if(!/^https?:\/\//i.test(v)) return "https://" + v;
+    return v;
+  }
+
+  function saveNewResource(){
+    const name = (f_name.value || "").trim();
+    if(!name){
+      alert("Please enter an organization name.");
+      return;
+    }
+
+    const url = sanitizeUrl(f_url.value);
+    const hours = (f_hours.value || "").trim();
+    const phone = (f_phone.value || "").trim();
+    const location = (f_location.value || "").trim();
+    const eligibility = (f_eligibility.value || "").trim();
+    const services = (f_services.value || "").trim();
+    const notes = (f_notes.value || "").trim();
+
+    const costTags = parseCommaList(f_cost.value);
+    const identityTags = parseCommaList(f_identity.value);
+    const serviceTags = parseCommaList(f_service.value);
+
+    // Combine tags; also keep dictionary consistent
+    const tags = [...new Set([...identityTags, ...serviceTags, ...costTags])];
+
+    const newItem = { name, url, hours, eligibility, services, location, phone, tags, notes };
+
+    allResources = [newItem, ...allResources];
+    saveResources(allResources);
+
+    // Extend tag dictionaries with any new tags
+    ensureTagDictionariesIncludeCurrentData();
+
+    closeModal();
+    render();
+  }
+
+  /**********************
+   * 8) Import/Export + Reset
+   **********************/
+  function download(filename, content, mime){
+    const blob = new Blob([content], { type: mime });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function exportJson(){
+    const payload = {
+      exportedAt: new Date().toISOString(),
+      resources: allResources
+    };
+    download("community-resources-export.json", JSON.stringify(payload, null, 2), "application/json");
+  }
+
+  function importJsonFile(file){
+    const reader = new FileReader();
+    reader.onload = () => {
+      try{
+        const parsed = JSON.parse(reader.result);
+        const list = Array.isArray(parsed) ? parsed : parsed.resources;
+        if(!Array.isArray(list)) throw new Error("Invalid JSON format.");
+
+        // Basic shape cleanup
+        const cleaned = list.map(r => ({
+          name: r.name || "",
+          url: r.url || "",
+          hours: r.hours || "",
+          eligibility: r.eligibility || "",
+          services: r.services || "",
+          location: r.location || "",
+          phone: r.phone || "",
+          tags: Array.isArray(r.tags) ? r.tags : [],
+          notes: r.notes || ""
+        }));
+
+        allResources = cleaned;
+        saveResources(allResources);
+        ensureTagDictionariesIncludeCurrentData();
+        render();
+        alert("Import successful.");
+      }catch(e){
+        alert("Import failed: " + (e.message || "Invalid file."));
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  function resetToDefaults(){
+    const ok = confirm("Reset to default resources? This overwrites your saved list on this device.");
+    if(!ok) return;
+
+    allResources = structuredClone(DEFAULT_RESOURCES);
+    saveResources(allResources);
+
+    // Clear filters and search
+    activeIdentity = new Set();
+    activeService = new Set();
+    activeCost = new Set();
+    activeTab = "";
+    searchTerm = "";
+    localStorage.removeItem(ACTIVE_FILTERS_KEY);
+    searchInput.value = "";
+
+    ensureTagDictionariesIncludeCurrentData();
+    renderTabs();
+    render();
+  }
+
+  /**********************
+   * 9) Events
+   **********************/
+  searchInput.addEventListener("input", (e) => {
+    searchTerm = normalize(e.target.value);
+    saveFilters();
+    render();
+  });
+
+  clearBtn.addEventListener("click", () => {
+    activeIdentity = new Set();
+    activeService = new Set();
+    activeCost = new Set();
+    activeTab = "";
+    searchTerm = "";
+    searchInput.value = "";
+    saveFilters();
+    renderTabs();
+    render();
+  });
+
+  addBtn.addEventListener("click", openModal);
+  closeModalBtn.addEventListener("click", closeModal);
+  cancelResourceBtn.addEventListener("click", closeModal);
+  saveResourceBtn.addEventListener("click", saveNewResource);
+
+  // Close modal when clicking backdrop
+  modalBackdrop.addEventListener("click", (e) => {
+    if(e.target === modalBackdrop) closeModal();
+  });
+  // Esc closes modal
+  window.addEventListener("keydown", (e) => {
+    if(e.key === "Escape" && modalBackdrop.style.display === "flex") closeModal();
+  });
+
+  exportBtn.addEventListener("click", exportJson);
+
+  importBtn.addEventListener("click", () => hiddenImport.click());
+  hiddenImport.addEventListener("change", (e) => {
+    const file = e.target.files?.[0];
+    if(file) importJsonFile(file);
+    hiddenImport.value = "";
+  });
+
+  resetBtn.addEventListener("click", resetToDefaults);
+
+  /**********************
+   * 10) Init
+   **********************/
+  loadFilters();
+  ensureTagDictionariesIncludeCurrentData();
+  searchInput.value = searchTerm || "";
+  renderTabs();
+  render();
+</script>
+</body>
+</html>
